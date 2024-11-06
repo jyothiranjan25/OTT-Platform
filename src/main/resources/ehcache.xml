@@ -1,0 +1,32 @@
+<config
+        xmlns='http://www.ehcache.org/v3'
+        xmlns:jsr107='http://www.ehcache.org/v3/jsr107'>
+
+    <service>
+        <jsr107:defaults enable-statistics="true"/>
+    </service>
+
+    <!-- Default cache configuration for all entities -->
+    <cache-template name="defaultEntityCache">
+        <key-type>java.lang.Long</key-type> <!-- Key type for all entities (typically Long for IDs) -->
+        <value-type>java.lang.Object</value-type> <!-- Use Object for generic entity caching -->
+        <expiry>
+            <ttl unit="minutes">120</ttl> <!-- Default Time-to-live of 120 minutes -->
+        </expiry>
+        <resources>
+            <heap unit="entries">1000</heap> <!-- Default heap size for all entities (1000 entries) -->
+            <offheap unit="MB">100</offheap> <!-- Default off-heap size (100 MB) -->
+        </resources>
+    </cache-template>
+
+    <cache alias="moviesCache">
+        <key-type>java.lang.Long</key-type>
+        <value-type>com.example.springboot.MovieApp.Movie</value-type>
+        <expiry>
+            <ttl unit="seconds">10000</ttl>
+        </expiry>
+        <resources>
+            <offheap unit="MB">100</offheap>
+        </resources>
+    </cache>
+</config>
