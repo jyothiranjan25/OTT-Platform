@@ -11,5 +11,4 @@ public class AppUserDTO {
     private String password;
     private String email;
     private AppUserEnum userType;
-    private Boolean isActive;
 }

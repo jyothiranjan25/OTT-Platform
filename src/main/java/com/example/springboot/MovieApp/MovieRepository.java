@@ -9,10 +9,4 @@ import org.springframework.stereotype.Repository;
 public interface MovieRepository extends JpaRepository<Movie, Long> {
 
     Page<Movie> findAll(Pageable pageable);
-
-    <Optional> Movie findByTitleIgnoreCase(String title);
-
-    <Optional> Movie findByGenreIgnoreCase(String genre);
-
-    <Optional> Movie findByRatingGreaterThanEqual(Double rating);
 }

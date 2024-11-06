@@ -39,6 +39,9 @@ public class AppUserService {
             if (appUserDTO.getUsername() != null) {
                 appUser.setUsername(appUserDTO.getUsername());
             }
+            if (appUserDTO.getEmail() != null) {
+                appUser.setEmail(appUserDTO.getEmail());
+            }
             if (appUserDTO.getPassword() != null) {
                 appUser.setPassword(appUserDTO.getPassword());
             }
@@ -86,7 +89,6 @@ public class AppUserService {
         appUserDTO.setPassword("admin");
         appUserDTO.setEmail("admin123@gmail.com");
         appUserDTO.setUserType(AppUserEnum.ADMIN);
-        appUserDTO.setIsActive(true);
         appUserRepository.findByUsername(appUserDTO.getUsername()).ifPresentOrElse(
                 appUser -> {
                     System.out.println("Admin user already exists");

@@ -24,6 +24,7 @@ import java.util.UUID;
 public class MovieService {
 
     private final MovieRepository movieRepository;
+    private final MovieDAO movieDAO;
     private final MovieMapper mapper;
     final static String BASE_PATH = System.getProperty("user.dir") + "/src/main/resources";
     final static String IMAGE_URL = "/static/images/";
@@ -31,23 +32,7 @@ public class MovieService {
 
     @Transactional(readOnly = true,propagation = Propagation.REQUIRES_NEW)
     public List<MovieDTO> get(MovieDTO movieDTO) {
-        List<Movie> movies;
-        if (movieDTO.getTitle() != null) {
-            int pageOffset = movieDTO.getPageOffset() != null ? movieDTO.getPageOffset() : 0;
-            int pageSize = movieDTO.getPageSize() != null ? movieDTO.getPageSize() : 10;
-            Pageable pageable = PageRequest.of(pageOffset / pageSize, pageSize,
-                    Sort.by("title").ascending() // Sort by title ascending
-            );
-            movies = movieRepository.findAll(pageable).getContent();
-        } else if(movieDTO.getPageOffset() != null && movieDTO.getPageSize() != null){
-            Pageable pageable = PageRequest.of(
-                    movieDTO.getPageOffset() / movieDTO.getPageSize(),
-                    movieDTO.getPageSize()
-            );
-            movies = movieRepository.findAll(pageable).getContent();
-        }else{
-            movies = movieRepository.findAll();
-        }
+       List<Movie> movies = movieDAO.get(movieDTO);
        return mapper.map(movies);
     }
 
