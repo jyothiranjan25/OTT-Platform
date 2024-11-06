@@ -33,6 +33,18 @@ public List<Movie> get(MovieDTO dto) {
 
             TypedQuery<Movie> query = entityManager.createQuery(criteriaQuery);
 
+            if (dto.getPageOffset() != null && dto.getPageSize() != null) {
+                int pageOffset = dto.getPageOffset();
+                int pageSize = dto.getPageSize();
+
+                // Calculate the offset
+                if(pageOffset < 0)pageOffset = 0;
+                else pageOffset = (pageOffset) * pageSize;
+                // Apply pagination
+                query.setFirstResult(pageOffset);  // Set the offset
+                query.setMaxResults(pageSize);     // Set the limit
+            }
+
             return query.getResultList();
         }catch (Exception e){
             throw new RuntimeException(e);
