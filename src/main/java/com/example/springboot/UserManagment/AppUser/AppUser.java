@@ -36,6 +36,6 @@ public class AppUser {
     @Enumerated(EnumType.STRING)
     private AppUserEnum userType;
 
-    @Column(name = "created_at",columnDefinition = "TIMESTAMP")
+    @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime createdAt;
 }

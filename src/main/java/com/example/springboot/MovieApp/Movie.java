@@ -48,6 +48,9 @@ public class Movie implements Serializable {
     @Column(name = "rating")
     private Double rating;
 
+    @Column(name ="type")
+    private String type;
+
     @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime createdAt;
 }
